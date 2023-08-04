@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add a new Book</title>
+</head>
+<body>
+  <h1>Add a new Book</h1>
+  <form id="createBookForm">
+    <label for="title">Title:</label>
+    <input type="text" id="title" required><br>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" required><br>
+
+    <button type="submit">Add</button>
+  </form>
+
+  <script>
+    // Sử dụng JavaScript để gửi thông tin sách mới lên API khi người dùng click "Add"
+    document.getElementById('createBookForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const title = document.getElementById('title').value;
+      const quantity = document.getElementById('quantity').value;
+
+      fetch('https://my-json-server.typicode.com/codegym-vn/mock-api-books/books', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title, quantity })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Book added successfully');
+        window.location.href = 'index.html';
+      });
+    });
+  </script>
+</body>
+</html>
